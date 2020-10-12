@@ -1,22 +1,22 @@
 export let todos =[
     {
         id:1,
-        name:"one"
+        name:"finish project"
     },
 
     {
         id:2,
-        name:"two"
+        name:"prepare food"
     },
 
 
     {
         id:3,
-        name:"three"
+        name:"read book"
     },
 
     {
         id:4,
-        name:"four"
+        name:"feed pets"
     },
 ]
