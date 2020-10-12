@@ -1,13 +1,54 @@
-import React from 'react';
+import React, { useState } from "react";
+import styles from "./styles.module.sass";
+import { useDispatch } from "react-redux";
+import { DeleteTodo, UpdateTodo } from "../../redux/actions";
 
-import styles from './styles.module.sass';
-
-function TodoItem() {
+function TodoItem({ todo }) {
+  const [editable, setEditable] = useState(false);
+  const [name, setName] = useState(todo.name);
+  let dispatch = useDispatch();
   return (
     <div className={styles.card}>
-      <h2 className={styles.title}>Title</h2>
-      <button className={styles.completeBtn}>Complete</button>
-      <button className={styles.deleteBtn}>Delete</button>
+      <div className="row  align-items-center">
+        <div className="col">
+          {editable ? (
+            <input
+              type="text"
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          ) : (
+            <h2 className={styles.title}>{todo.name}</h2>
+          )}
+        </div>
+
+        <button
+          onClick={() => {
+
+            dispatch(UpdateTodo(
+              {
+                ...todo,
+                name:name
+
+              }
+            ))
+            if(editable){
+              setName(todo.name);
+            }
+            setEditable(!editable);
+          }}
+          className={styles.completeBtn}
+        >
+          {editable ? "Update" : "Complete"}
+        </button>
+        <button
+          onClick={() => dispatch(DeleteTodo(todo.id))}
+          className={styles.deleteBtn}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }
